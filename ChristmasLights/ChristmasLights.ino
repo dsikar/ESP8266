@@ -26,7 +26,7 @@ ESP8266WiFiMulti WiFiMulti;
 CRGB leds[NUM_LEDS];
 
 #define UPDATES_PER_SECOND 100
-bool bLightsOn;
+bool bLightsOn = false;
 
 /* Wifi network details go here*/
 static const char MYSSID[] = "RD WiFi";
@@ -58,6 +58,9 @@ extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 
 
 void setup() {
+  /* Serial */
+  USE_SERIAL.begin(115200);
+  USE_SERIAL.println("*** CHRISTMAS LIGHTS ARE COMING TO TOWN ***"); 
   /* Fast LED */
   delay( 3000 ); // power-up safety delay
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
@@ -67,8 +70,9 @@ void setup() {
   currentBlending = LINEARBLEND;
 
   /* Wifi */
-  USE_SERIAL.begin(115200);
   WiFiMulti.addAP(MYSSID, MYPWD);
+  USE_SERIAL.println("*** Sending request ***\n");
+  CheckLights();
 }
 
 void loop()
