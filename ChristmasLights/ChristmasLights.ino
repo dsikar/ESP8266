@@ -20,14 +20,16 @@ ESP8266WiFiMulti WiFiMulti;
 
 #define LED_PIN     1 // Pin 0 does not seem to work
 #define NUM_LEDS    31
-#define BRIGHTNESS  50
+#define BRIGHTNESS  255
 #define LED_TYPE    TM1809
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
 
 #define UPDATES_PER_SECOND 100
+int MILLISPERSECOND = 6000; // start with 6 seconds to get it working then change to 60000;
 bool bLightsOn = false;
 
+// Debug 1, no debug 0
 #define DEBUG 1
 
 /* Wifi network details go here*/
@@ -84,19 +86,40 @@ void setup() {
 
 void loop()
 {
+  delay(2000);
+  bLightsOn = CheckLights();
+  if(bLightsOn == true) {
+    int offset = millis();
+    while((millis() - offset) / MILLISPERSECOND < 1) {
+      FillLEDsFromPaletteColors( 1000 );
+      FastLED.show();  
+    }
+    SwitchOffLEDs();
+    FastLED.show();
+  }
+  
   // bLightsOn = CheckLights();
-  while(LightsCheck() == true)
+  while(false) // LightsCheck() == true)
   {
     ChangePalettePeriodically();
     
     static uint8_t startIndex = 0;
     startIndex = startIndex + 1; /* motion speed */
     
-    FillLEDsFromPaletteColors( startIndex);
+    FillLEDsFromPaletteColors( startIndex );
     
     FastLED.show();
     FastLED.delay(1000 / UPDATES_PER_SECOND);
   }
+  
+  
+  ChangePalettePeriodically();
+  // delay(1000);
+  FillLEDsFromPaletteColors( 1000 );
+  FastLED.show();
+  delay(1000);
+  SwitchOffLEDs();
+  FastLED.show();
 }
 
 bool LightsCheck() {
@@ -161,13 +184,25 @@ bool LightsCheck() {
   USE_SERIAL.print("Returning false\n");
   return false;
 }
+
 void FillLEDsFromPaletteColors( uint8_t colorIndex)
+{
+  // uint8_t brightness = 255;
+  
+  for( int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = ColorFromPalette( currentPalette, colorIndex, BRIGHTNESS, currentBlending);
+    colorIndex += 3;
+  }
+}
+
+
+void SwitchOffLEDs()
 {
   uint8_t brightness = 255;
   
   for( int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = ColorFromPalette( currentPalette, colorIndex, brightness, currentBlending);
-    colorIndex += 3;
+    leds[i] = ColorFromPalette( currentPalette, 0, 0, currentBlending);
+    // colorIndex += 3;
   }
 }
 
