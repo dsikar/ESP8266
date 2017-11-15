@@ -28,6 +28,8 @@ CRGB leds[NUM_LEDS];
 #define UPDATES_PER_SECOND 100
 bool bLightsOn = false;
 
+#define DEBUG 1
+
 /* Wifi network details go here*/
 static const char MYSSID[] = "RD WiFi";
 static const char MYPWD[]  = "thornfire";
@@ -60,6 +62,7 @@ extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 void setup() {
   /* Serial */
   USE_SERIAL.begin(115200);
+  USE_SERIAL.flush();
   USE_SERIAL.println("*** CHRISTMAS LIGHTS ARE COMING TO TOWN ***"); 
   /* Fast LED */
   delay( 3000 ); // power-up safety delay
@@ -104,7 +107,7 @@ bool CheckLights() {
     // configure target server and url
   
     /* TODO server ip as define */
-    String httpReq = "http://192.168.1.196/index.php";
+    String httpReq = "https://raw.githubusercontent.com/dsikar/StudioIniSerialBroker/master/Arduino/imu_arduino_hand/imu_arduino_hand.ino";
   
     USE_SERIAL.println("*** Sending request ***\n");
     USE_SERIAL.println(httpReq);
