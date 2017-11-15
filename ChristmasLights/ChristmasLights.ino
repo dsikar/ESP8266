@@ -20,17 +20,17 @@ ESP8266WiFiMulti WiFiMulti;
 
 #define LED_PIN     1 // Pin 0 does not seem to work
 #define NUM_LEDS    31
-#define BRIGHTNESS  255
+#define BRIGHTNESS  50
 #define LED_TYPE    TM1809
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
 
 #define UPDATES_PER_SECOND 100
-int MILLISPERSECOND = 6000; // start with 6 seconds to get it working then change to 60000;
+int MILLISPERSECOND = 60000;
 bool bLightsOn = false;
 
 // Debug 1, no debug 0
-#define DEBUG 1
+#define DEBUG 0
 
 /* Wifi network details go here*/
 static const char MYSSID[] = "RD WiFi";
@@ -60,7 +60,6 @@ TBlendType    currentBlending;
 extern CRGBPalette16 myRedWhiteBluePalette;
 extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 
-
 void setup() {
   /* Serial */
   USE_SERIAL.begin(115200);
@@ -86,45 +85,28 @@ void setup() {
 
 void loop()
 {
+  // Delay so we don't hammer webserver
   delay(2000);
-  bLightsOn = CheckLights();
+  bLightsOn = LightsCheck();
   if(bLightsOn == true) {
     int offset = millis();
     while((millis() - offset) / MILLISPERSECOND < 1) {
-      FillLEDsFromPaletteColors( 1000 );
-      FastLED.show();  
+      ChangePalettePeriodically();
+      
+      static uint8_t startIndex = 0;
+      startIndex = startIndex + 1; /* motion speed */
+      
+      FillLEDsFromPaletteColors( startIndex );
+      
+      FastLED.show();
+      FastLED.delay(1000 / UPDATES_PER_SECOND); 
     }
     SwitchOffLEDs();
     FastLED.show();
   }
-  
-  // bLightsOn = CheckLights();
-  while(false) // LightsCheck() == true)
-  {
-    ChangePalettePeriodically();
-    
-    static uint8_t startIndex = 0;
-    startIndex = startIndex + 1; /* motion speed */
-    
-    FillLEDsFromPaletteColors( startIndex );
-    
-    FastLED.show();
-    FastLED.delay(1000 / UPDATES_PER_SECOND);
-  }
-  
-  
-  ChangePalettePeriodically();
-  // delay(1000);
-  FillLEDsFromPaletteColors( 1000 );
-  FastLED.show();
-  delay(1000);
-  SwitchOffLEDs();
-  FastLED.show();
 }
 
 bool LightsCheck() {
-  // start with delay so we don't hammer webserver
-  delay(2000);
   
   String payload = "";
   
@@ -132,8 +114,10 @@ bool LightsCheck() {
   if((WiFiMulti.run() == WL_CONNECTED)) {
   
     HTTPClient http;
-  
-    USE_SERIAL.print("[HTTP] begin...\n");
+
+    if(DEBUG == 1){
+      USE_SERIAL.print("[HTTP] begin...\n");
+    }
     // configure target server and url
   
     /* TODO server ip as define */
