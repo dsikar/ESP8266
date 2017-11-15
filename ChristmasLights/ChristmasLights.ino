@@ -63,7 +63,9 @@ void setup() {
   /* Serial */
   USE_SERIAL.begin(115200);
   USE_SERIAL.flush();
-  USE_SERIAL.println("*** CHRISTMAS LIGHTS ARE COMING TO TOWN ***"); 
+  if(DEBUG == 1) {
+    USE_SERIAL.println("*** CHRISTMAS LIGHTS ARE COMING TO TOWN ***"); 
+  }
   /* Fast LED */
   delay( 3000 ); // power-up safety delay
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
@@ -74,14 +76,16 @@ void setup() {
 
   /* Wifi */
   WiFiMulti.addAP(MYSSID, MYPWD);
-  USE_SERIAL.println("*** Sending request ***\n");
-  CheckLights();
+  if(DEBUG == 1) {
+    USE_SERIAL.println("*** Sending request ***\n");
+  }
+  // CheckLights();
 }
 
 void loop()
 {
-  bLightsOn = CheckLights();
-  while(bLightsOn == true)
+  // bLightsOn = CheckLights();
+  while(LightsCheck() == true)
   {
     ChangePalettePeriodically();
     
@@ -93,11 +97,14 @@ void loop()
     FastLED.show();
     FastLED.delay(1000 / UPDATES_PER_SECOND);
   }
-
-  delay(2000);
 }
 
-bool CheckLights() {
+bool LightsCheck() {
+  // start with delay so we don't hammer webserver
+  delay(2000);
+  
+  String payload = "";
+  
   // wait for WiFi connection
   if((WiFiMulti.run() == WL_CONNECTED)) {
   
@@ -107,32 +114,51 @@ bool CheckLights() {
     // configure target server and url
   
     /* TODO server ip as define */
-    String httpReq = "https://raw.githubusercontent.com/dsikar/StudioIniSerialBroker/master/Arduino/imu_arduino_hand/imu_arduino_hand.ino";
-  
-    USE_SERIAL.println("*** Sending request ***\n");
-    USE_SERIAL.println(httpReq);
+    String httpReq = "http://192.168.1.196/xmas-lights.php";
+
+    if(DEBUG == 1){
+      USE_SERIAL.println("*** Sending request ***\n");
+      USE_SERIAL.println(httpReq);      
+    }
+
     http.begin(httpReq);
-    
-    USE_SERIAL.print("[HTTP] GET...\n");
+
+    if(DEBUG == 1){    
+      USE_SERIAL.print("[HTTP] GET...\n");
+    }
     // start connection and send HTTP header
     int httpCode = http.GET();
   
     // httpCode will be negative on error
     if(httpCode > 0) {
       // HTTP header has been send and Server response header has been handled
-      USE_SERIAL.printf("[HTTP] GET... code: %d\n", httpCode);
-  
+      if(DEBUG == 1){      
+        USE_SERIAL.printf("[HTTP] GET... code: %d\n", httpCode);
+      }
       // file found at server
       if(httpCode == HTTP_CODE_OK) {
-        String payload = http.getString();
-        USE_SERIAL.println(payload);
+        payload = http.getString();
+        // Get rid of trailing white space characters
+        payload.trim();
+        if(DEBUG == 1){  
+          USE_SERIAL.println(payload);
+        }
       }
     } else {
-      USE_SERIAL.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+      if(DEBUG == 1){
+        USE_SERIAL.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+      }
     }
-  
     http.end();
-  }  
+  }
+  // Are lights being switched on?
+  if(payload == "on") {
+    // Yay! :D
+    USE_SERIAL.print("Returning true\n");
+    return true;
+  }   
+  // Nay? :(
+  USE_SERIAL.print("Returning false\n");
   return false;
 }
 void FillLEDsFromPaletteColors( uint8_t colorIndex)
