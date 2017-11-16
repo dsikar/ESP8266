@@ -17,9 +17,13 @@ Addressable LED strip controlled by NodeMCU (ESP8266).
 +-------------+  +------+  | VIN    3.3V  |  +-------+  3.3V       GND     +--------+  | GND    |
                            +--------------+                                            +--------+
 
-							 Rpi
-							+--------+
-			USB	 +------+ 	| USB    |
-							|        |
-							+--------+                           
+			    Rpi
+             		   +--------+
+             USB +------+  | USB    |
+			   |        |
+			   +--------+                           
 ```      
+
+## Code
+
+ChristmasLights.ino runs on NodeMCU and polls Rpi. crontab runs on Rpi, generating file /var/www/html/xmas-lights.php.
