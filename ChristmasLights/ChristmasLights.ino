@@ -53,7 +53,6 @@ static const char MYPWD[]  = "thornfire";
 // Some notes on the more abstract 'theory and practice' of
 // FastLED compact palettes are at the bottom of this file.
 
-
 CRGBPalette16 currentPalette;
 TBlendType    currentBlending;
 
