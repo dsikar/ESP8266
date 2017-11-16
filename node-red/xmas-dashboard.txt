@@ -1,0 +1,146 @@
+[
+    {
+        "id": "ea704a72.f87618",
+        "type": "exec",
+        "z": "7ccedad7.e82634",
+        "command": "sh /home/pi/github/ESP8266/bash/lights-on.sh",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 593,
+        "y": 145.5,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "cfa34e82.01ec6",
+        "type": "ui_button",
+        "z": "7ccedad7.e82634",
+        "name": "",
+        "group": "560a62eb.6e516c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ON",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 230,
+        "y": 151,
+        "wires": [
+            [
+                "ea704a72.f87618"
+            ]
+        ]
+    },
+    {
+        "id": "a0703b3e.ac8098",
+        "type": "exec",
+        "z": "7ccedad7.e82634",
+        "command": "sh /home/pi/github/ESP8266/bash/lights-off.sh",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 566,
+        "y": 259,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d92f7b84.c732f8",
+        "type": "ui_button",
+        "z": "7ccedad7.e82634",
+        "name": "",
+        "group": "560a62eb.6e516c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "OFF",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 203,
+        "y": 264.5,
+        "wires": [
+            [
+                "a0703b3e.ac8098"
+            ]
+        ]
+    },
+    {
+        "id": "b752c3d4.16d5c",
+        "type": "ui_slider",
+        "z": "7ccedad7.e82634",
+        "name": "",
+        "label": "slider",
+        "group": "54eed427.df2dbc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "",
+        "min": 0,
+        "max": "255",
+        "step": 1,
+        "x": 214,
+        "y": 392,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "560a62eb.6e516c",
+        "type": "ui_group",
+        "z": "",
+        "name": "MAIN POWER",
+        "tab": "ab22e161.4e75e",
+        "order": 1,
+        "disp": true,
+        "width": "2"
+    },
+    {
+        "id": "54eed427.df2dbc",
+        "type": "ui_group",
+        "z": "",
+        "name": "Constrast",
+        "tab": "dfb96696.faa118",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "ab22e161.4e75e",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Xmas HQ",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "dfb96696.faa118",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    }
+]
