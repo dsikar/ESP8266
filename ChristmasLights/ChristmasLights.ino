@@ -160,12 +160,14 @@ bool LightsCheck() {
   }
   // Are lights being switched on?
   if(payload == "on") {
-    // Yay! :D
-    USE_SERIAL.print("Returning true\n");
+    if(DEBUG == 1){
+      USE_SERIAL.print("Returning true\n");
+    }
     return true;
   }   
-  // Nay? :(
-  USE_SERIAL.print("Returning false\n");
+  if(DEBUG == 1){
+    USE_SERIAL.print("Returning false\n");
+  }
   return false;
 }
 
