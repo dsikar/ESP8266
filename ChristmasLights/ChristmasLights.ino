@@ -35,6 +35,7 @@ bool bLightsOn = false;
 /* Wifi network details go here*/
 static const char MYSSID[] = "RD WiFi";
 static const char MYPWD[]  = "thornfire";
+static const char IPADDRESS[] = "192.168.1.196";
 
 // This example shows several ways to set up and use 'palettes' of colors
 // with FastLED.
@@ -118,9 +119,9 @@ bool LightsCheck() {
       USE_SERIAL.print("[HTTP] begin...\n");
     }
     // configure target server and url
-  
-    /* TODO server ip as define */
-    String httpReq = "http://192.168.1.196/xmas-lights.php";
+    String httpReq = "http://";
+    httpReq += IPADDRESS;
+    httpReq += "/xmas-lights.php";
 
     if(DEBUG == 1){
       USE_SERIAL.println("*** Sending request ***\n");
