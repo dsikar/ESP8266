@@ -21,7 +21,10 @@ Addressable LED strip controlled by NodeMCU (ESP8266).
              		   +--------+
              USB +------+  | USB    |
 			   |        |
-			   +--------+                           
+			   +--------+
+
+*** Missing ***
+Wire D0 to RST (to wake up device from deep sleep)
 ```      
 
 ## Code
