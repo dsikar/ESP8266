@@ -29,6 +29,10 @@ CRGB leds[NUM_LEDS];
 int MILLISPERSECOND = 60000;
 bool bLightsOn = false;
 
+// Sleep timers
+int iTries = 20;
+int iSleep = 20e6; // 20 million ESP deepSleep microsecods 
+
 // Debug 1, no debug 0
 #define DEBUG 0
 
@@ -85,6 +89,7 @@ void setup() {
 
 void loop()
 {
+  static int iCount = 0;
   // Delay so we don't hammer webserver
   delay(2000);
   bLightsOn = LightsCheck();
@@ -103,6 +108,13 @@ void loop()
     }
     SwitchOffLEDs();
     FastLED.show();
+  }
+  iCount++;
+  if(iCount > iTries)
+  {
+    // Go to sleep to save electrical energy
+    // TODO change iSleep data type - summat that can hold 20e6
+    ESP.deepSleep(iSleep);
   }
 }
 
