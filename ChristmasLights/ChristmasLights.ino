@@ -30,8 +30,8 @@ int MILLISPERSECOND = 60000;
 bool bLightsOn = false;
 
 // Sleep timers
-int iTries = 20;
-int iSleep = 20e6; // 20 million ESP deepSleep microsecods 
+int iTries = 2;
+// int iSleep = 20e6; // 20 million ESP deepSleep microsecods 
 
 // Debug 1, no debug 0
 #define DEBUG 0
@@ -114,7 +114,7 @@ void loop()
   {
     // Go to sleep to save electrical energy
     // TODO change iSleep data type - summat that can hold 20e6
-    ESP.deepSleep(iSleep);
+    ESP.deepSleep(60e6); // sleep for 60 seconds
   }
 }
 
