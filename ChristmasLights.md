@@ -6,6 +6,8 @@ Addressable LED strip controlled by NodeMCU (ESP8266).
 
 ## Connection Diagram
 
+Note D0 and RST lines must be disconnected when uploading firmware.
+
 ```
                                 NodeMCU                                                 LED Strip
 
