@@ -31,7 +31,7 @@ bool bLightsOn = false;
 
 // Sleep timers
 int iTries = 2;
-// int iSleep = 20e6; // 20 million ESP deepSleep microsecods 
+unsigned long lSleep = 3600e6; // 3600 million ESP deepSleep microsecods 
 
 // Debug 1, no debug 0
 #define DEBUG 0
@@ -113,9 +113,61 @@ void loop()
   if(iCount > iTries)
   {
     // Go to sleep to save electrical energy
-    // TODO change iSleep data type - summat that can hold 20e6
-    ESP.deepSleep(60e6); // sleep for 60 seconds
+    // TODO if between 12h and 13h, sleep every 10 minutes to display lunch break lights
+    // unsigned long lSleep = GetSleep(); // TODO implement get sleep
+    ESP.deepSleep(lSleep); // sleep for 3600 seconds
   }
+}
+
+String GetHTTPPayLoad(String URL) {
+  
+  String payload = "";
+  
+  // wait for WiFi connection
+  if((WiFiMulti.run() == WL_CONNECTED)) {
+  
+    HTTPClient http;
+
+    if(DEBUG == 1){
+      USE_SERIAL.print("[HTTP] begin...\n");
+    }
+
+    if(DEBUG == 1){
+      USE_SERIAL.println("*** Sending request ***\n");
+      USE_SERIAL.println(URL);      
+    }
+
+    http.begin(URL);
+
+    if(DEBUG == 1){    
+      USE_SERIAL.print("[HTTP] GET...\n");
+    }
+    // start connection and send HTTP header
+    int httpCode = http.GET();
+  
+    // httpCode will be negative on error
+    if(httpCode > 0) {
+      // HTTP header has been send and Server response header has been handled
+      if(DEBUG == 1){      
+        USE_SERIAL.printf("[HTTP] GET... code: %d\n", httpCode);
+      }
+      // file found at server
+      if(httpCode == HTTP_CODE_OK) {
+        payload = http.getString();
+        // Get rid of trailing white space characters
+        payload.trim();
+        if(DEBUG == 1){  
+          USE_SERIAL.println(payload);
+        }
+      }
+    } else {
+      if(DEBUG == 1){
+        USE_SERIAL.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+      }
+    }
+    http.end();
+  }
+  return payload;
 }
 
 bool LightsCheck() {
