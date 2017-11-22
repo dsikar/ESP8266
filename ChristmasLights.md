@@ -30,3 +30,13 @@ Wire D0 to RST (to wake up device from deep sleep)
 ## Code
 
 ChristmasLights.ino runs on NodeMCU and polls Rpi. crontab runs on Rpi, generating file /var/www/html/xmas-lights.php.
+
+## Roadmap
+
+* Change sleep pattern
+** Sleep outside office hours
+** wake up every hour until lunchtime
+** wake up every ten minutes during lunchtime
+* Add mp3 player
+* Migrate to ESP32
+* Change Arduino request job task to "close" open job once finished
