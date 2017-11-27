@@ -31,10 +31,10 @@ bool bLightsOn = false;
 
 // Sleep timers
 int iTries = 2;
-unsigned long lSleep = 3600e6; // 3600 million ESP deepSleep microsecods 
+unsigned long lSleep = 20e6; // 1e6 ~ 1 second 
 
 // Debug 1, no debug 0
-#define DEBUG 0
+#define DEBUG 1
 
 /* Wifi network details go here*/
 static const char MYSSID[] = "RD WiFi";
@@ -89,7 +89,7 @@ void setup() {
 
 void loop()
 {
-  static int iCount = 0;
+  // static int iCount = 0; No sleep 
   // Delay so we don't hammer webserver
   delay(2000);
   bLightsOn = LightsCheck();
@@ -109,14 +109,17 @@ void loop()
     SwitchOffLEDs();
     FastLED.show();
   }
+  // No sleep
+  /*
   iCount++;
   if(iCount > iTries)
   {
     // Go to sleep to save electrical energy
     // TODO if between 12h and 13h, sleep every 10 minutes to display lunch break lights
     // unsigned long lSleep = GetSleep(); // TODO implement get sleep
-    ESP.deepSleep(lSleep); // sleep for 3600 seconds
+    ESP.deepSleep(lSleep); // sleep for 10 seconds
   }
+  */
 }
 
 String GetHTTPPayLoad(String URL) {
