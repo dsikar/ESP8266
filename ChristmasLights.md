@@ -35,10 +35,7 @@ ChristmasLights.ino runs on NodeMCU and polls Rpi. crontab runs on Rpi, generati
 
 ## Roadmap
 
-* Change sleep pattern
-** Sleep outside office hours
-** wake up every hour until lunchtime
-** wake up every ten minutes during lunchtime
-* Add mp3 player
+* Change RGB and timing pattern - examples from library
+* Add <strike>mp3</strike> AD4 WTV020 player
 * Migrate to ESP32
 * Change Arduino request job task to "close" open job once finished
