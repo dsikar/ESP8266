@@ -19,7 +19,7 @@ ESP8266WiFiMulti WiFiMulti;
 */
 
 #define LED_PIN     1 // Pin 0 does not seem to work
-#define NUM_LEDS    31
+#define NUM_LEDS    144
 #define BRIGHTNESS  150
 #define LED_TYPE    TM1809
 #define COLOR_ORDER GRB
