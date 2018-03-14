@@ -9,7 +9,7 @@ To run the example:
 1. Wire up NodeMCU and KY-037 as per wiring diagram
 2. Run sketch KY-037.ino - note there is an analogue and digital section, comment/uncomment as required
 3. Monitor output via Serial Monitor
-4. Adjust pot for threshold
+4. Adjust pot for threshold - note pot will turn built in led on and off helping to identify threshold
 
 ## Wiring diagram
 
