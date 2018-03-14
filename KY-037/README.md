@@ -17,9 +17,9 @@ To run the example:
                    NodeMCU                                                  KY-037
                +------------+                                            +----------+
                |            |                                            |          |
-    A0 +-----+ |            | +-----+ D1          BLACK (to GND) +-----+ |          |
+    A0 +-----+ |            | +-----+ D2          BLACK (to GND) +-----+ |          |
                |            |                                            |          |
-               |            |                  RED (to D1 or A0) +-----+ |          |
+               |            |                  RED (to D2 or A0) +-----+ |          |
                |            |                                            |          |
                |            |                   YELLOW (to 3.3V) +-----+ |          |
                |            |                                            |          |
