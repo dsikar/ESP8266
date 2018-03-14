@@ -43,3 +43,8 @@ Top
 Bottom
 ![KY-037 bottom](https://cdn.shopify.com/s/files/1/2252/3227/products/BDAA100116_Sound_20Detection_20Module_20Keyes_20Red_20inc_203_20Wire_3_75ca706c-c804-4344-b9d4-a6e497b3c5a7_x700.jpg?v=1504170224)
 
+## Product pages
+
+[Sound detection module](https://fluxworkshop.com/products/bdaa100116-sound-detection-module-keyes-red-inc-3-wire)  
+[NodeMCU](https://www.ebay.co.uk/i/162867196959?chn=ps&adgroupid=13585920426&rlsatarget=pla-142405565586&abcId=&adtype=pla&merchantid=6995734&poi=&googleloc=9046631&device=c&campaignid=207297426&crdt=0)
+
