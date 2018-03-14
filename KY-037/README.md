@@ -2,6 +2,15 @@
 
 Sound detection using the Keyes KY-037 sound detection module and the ESP8266 arduino compatible NodeMCU.
 
+## Setting up
+
+To run the example:
+
+1. Wire up NodeMCU and KY-037 as per wiring diagram
+2. Run sketch KY-037.ino - note there is an analogue and digital section, comment/uncomment as required
+3. Monitor output via Serial Monitor
+4. Adjust pot for threshold
+
 ## Wiring diagram
 
 ```
