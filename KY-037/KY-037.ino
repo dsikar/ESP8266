@@ -29,7 +29,7 @@ void loop ()
 // KY-037 Sound detection module, modified from
 // https://arduining.com/2015/08/20/nodemcu-breathing-led-with-arduino-ide/
 
-int buttonpin = D1; // define D0 Sensor Interface
+int buttonpin = D1; // define D1 Sensor Interface
 int val = 0;// define numeric variables val
  
 void setup ()
