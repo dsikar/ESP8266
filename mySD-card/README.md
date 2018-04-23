@@ -1,4 +1,4 @@
-# Wiring up the Catalex MicroSD Card Adapter to the NodeMCU
+# Wiring up Catalex MicroSD Card Adapter to NodeMCU
 
 Code is taken from the Arduino SD listfiles example. To work with the NodeMCU, some changes in the wiring is required, as well as powering the Catalex MicroSD Adapter with 5V.
 
@@ -24,6 +24,6 @@ Code is taken from the Arduino SD listfiles example. To work with the NodeMCU, s
 
 ## Code
 
-!(mySD-card.ino)[mySD-card.ino]
+[Arduino Sketch](mySD-card.ino)
 
 
