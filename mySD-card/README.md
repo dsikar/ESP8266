@@ -31,3 +31,5 @@ Code is taken from the Arduino SD listfiles example. To work with the NodeMCU, s
 1. ![WTV020M01](http://electronoobs.com/images/Arduino/tut_8/1.png)
 
 2. [Alternative](http://nerdclub-uk.blogspot.co.uk/2016/06/playing-audio-with-wtv020m01-and-arduino.html)
+
+3. [One of these has to work](http://www.instructables.com/id/How-to-use-WTV020SD-16P-with-Arduino/)
