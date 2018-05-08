@@ -26,4 +26,6 @@ Code is taken from the Arduino SD listfiles example. To work with the NodeMCU, s
 
 [Arduino Sketch](mySD-card.ino)
 
+## WTV020M1 TODO - document this setup
 
+![WTV020M01](http://electronoobs.com/images/Arduino/tut_8/1.png)
